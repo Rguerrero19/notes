@@ -25,3 +25,5 @@ alias commit='git commit'
 alias gs='git status'
 alias off='shutdown now'
 alias init='git init'
+
+https://github.com/cronwell30
