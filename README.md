@@ -27,3 +27,5 @@ alias off='shutdown now'
 alias init='git init'
 
 https://github.com/cronwell30
+
+https://www.youtube.com/watch?v=5kWLE1Eu7LU
