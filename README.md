@@ -16,8 +16,11 @@ FUNCIONES TERMINAL
 tty-clock -C   reloj
 ranger  explorador
 tmux    dividir terminal
+nano ~/.bashrc  crear atajos rerminal
 
 ATAJOS TERMINAL
+
+nano ~/.bashrc #abrir archivo atajos
 
 alias update='sudo apt update && sudo apt upgrade'
 alias add='git add'
@@ -25,6 +28,9 @@ alias commit='git commit'
 alias gs='git status'
 alias off='shutdown now'
 alias init='git init'
+
+source ~/.bashrc #cargar atajos
+
 
 https://github.com/cronwell30
 
