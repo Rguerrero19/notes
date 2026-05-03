@@ -48,7 +48,10 @@ sudo systemctl status postgresql
             --Vercion--
 psql --version
 
-        --Cambiar al usuario postgres--
+        --Habilitar inicio automático--
+sudo systemctl enable postgresql
+
+        --Acceder a consola como super usuario--
 sudo -i -u postgres 
 
         --Habilitar inicio automático--
@@ -59,24 +62,23 @@ sudo -i -u user name
 
         --Acceder a la consola de PostgreSQL--
 psql 
-sudo -u postgres psql #estas opciones son a elegir
+sudo -u postgres psql
 
 #               users
 
         -- Crear un nuevo usuario/rol
 CREATE USER mi_usuario WITH PASSWORD 'tu_contraseña';
+
+        --otorgar todos los permisos a un usuario--
+ALTER USER mi_usuario WITH SUPERUSER CREATEDB CREATEROLE REPLICATION INHERIT LOGIN;
+
             --lista de usuarios--
 /du 
 
         --Cambiar usuario--
 sudo -i -u user name
 
-            -- Otorgar privilegios
-GRANT ALL PRIVILEGES ON DATABASE mi_base_datos TO mi_usuario;
-
-        -- Usuario con privilegios específicos--
-CREATE USER mi_usuario WITH 
-    PASSWORD 'mi_pass123'
+        -- Otorgar privilegios específicos a un ususrio --
     CREATEDB    -- Puede crear bases de datos
     CREATEROLE  -- Puede crear roles
     LOGIN       -- Puede conectarse
@@ -102,8 +104,33 @@ DROP USER nombre_usuario CASCADE;
 -- Verificar tus propios privilegios
 SELECT current_user, usesuper FROM pg_user WHERE usename = current_user;
 
-            --Agregar privilegios--
+                --Agregar privilegios--
 ALTER USER nombre_usuario CREATEDB CREATEROLE;
 
-            -- Quitar privilegios--
+                -- Quitar privilegios--
 ALTER USER nombre_usuario NOCREATEDB NOCREATEROLE;
+
+                --Otorgar todos los privilegios a un usuario--
+ALTER USER mi_usuario WITH SUPERUSER CREATEDB CREATEROLE REPLICATION INHERIT LOGIN;
+
+#       CONEXIONES
+
+1.- Conecta como super usuario
+2.- Crea base de datos
+3.- Crear y ortorgar privilegios a usuario (en caso de no haber creado previamente)
+
+                -- Edita archivo configuracion postgres--
+
+sudo nano /etc/postgresql/*/main/postgresql.conf
+Busca la línea #listen_addresses = 'localhost' y cámbiala por listen_addresses = '*'
+
+                --Edita el archivo de control de acceso de clientes:--
+
+sudo nano /etc/postgresql/*/main/pg_hba.conf
+
+                --Agrega esta linea al final del archivo--
+host    all             all             0.0.0.0/0               md5
+
+                --Reinicia el servicio--
+sudo systemctl restart postgresql
+
