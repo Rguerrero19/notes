@@ -134,3 +134,4 @@ host    all             all             0.0.0.0/0               md5
                 --Reinicia el servicio--
 sudo systemctl restart postgresql
 
+prueba commit
