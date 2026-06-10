@@ -61,7 +61,7 @@ sudo systemctl enable postgresql
 sudo -i -u user name
 
         --Acceder a la consola de PostgreSQL--
-psql 
+psql
 sudo -u postgres psql
 
 #               users
@@ -73,7 +73,7 @@ CREATE USER mi_usuario WITH PASSWORD 'tu_contraseña';
 ALTER USER mi_usuario WITH SUPERUSER CREATEDB CREATEROLE REPLICATION INHERIT LOGIN;
 
             --lista de usuarios--
-/du 
+\du
 
         --Cambiar usuario--
 sudo -i -u user name
